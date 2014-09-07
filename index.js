@@ -8,13 +8,16 @@ var conn = skynet.createConnection({
 });
 
 conn.on('ready', function(){
-	conn.on('message', function(channel, message){
+	console.log('Connected to Skynet');
+	conn.on('message', function(message){
+		console.log('On Message', message);
 		var file = message.payload || 'siren';
 		var player = new Player('./sounds/' + file + '.mp3');
 
 		player.play();
 	});
-	conn.on('disconnect', function(){
-		console.log('Disconnected from Skynet');
-	});
+});
+
+conn.on('notReady', function(){
+	console.log('Not Ready');
 });
